@@ -9,6 +9,13 @@ type GitRepo{
     id: ID!
     name: String!
     description: String
+    issues: [Issue!]!
+}
+
+type Issue{
+    id: ID!
+    title: String!
+    description: String
 }
 
 type Query{

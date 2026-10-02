@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: mini_github_postgres
+    environment:
+      POSTGRES_USER: mg_user
+      POSTGRES_PASSWORD: mg_password
+      POSTGRES_DB: mini_github_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data:

@@ -15,3 +15,11 @@ type Query{
     user(username: String!): User
     users: [User!]!
 }
+
+type Mutation{
+    createRepo(
+        name: String!
+        description: String
+        ownerUsername: String!
+    ): GitRepo!
+}

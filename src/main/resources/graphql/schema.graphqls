@@ -29,4 +29,10 @@ type Mutation{
         description: String
         ownerUsername: String!
     ): GitRepo!
+
+    createIssue(
+        title: String!
+        description: String
+        repoId: ID!
+    ): Issue!
 }

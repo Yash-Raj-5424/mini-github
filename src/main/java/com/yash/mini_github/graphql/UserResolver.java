@@ -1,8 +1,10 @@
 package com.yash.mini_github.graphql;
 
 import com.yash.mini_github.model.GitRepo;
+import com.yash.mini_github.model.Issue;
 import com.yash.mini_github.model.User;
 import com.yash.mini_github.repository.GitRepoRepository;
+import com.yash.mini_github.repository.IssueRepository;
 import com.yash.mini_github.repository.UserRepository;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -16,10 +18,16 @@ public class UserResolver {
 
     private final UserRepository userRepository;
     private final GitRepoRepository gitRepoRepository;
+    private final IssueRepository issueRepository;
 
-    public UserResolver(UserRepository userRepository, GitRepoRepository gitRepoRepository){
+    public UserResolver(
+            UserRepository userRepository,
+            GitRepoRepository gitRepoRepository,
+            IssueRepository issueRepository
+    ){
         this.userRepository = userRepository;
         this.gitRepoRepository = gitRepoRepository;
+        this.issueRepository = issueRepository;
     }
 
     @QueryMapping
@@ -49,5 +57,23 @@ public class UserResolver {
         repo.setOwner(owner);
 
         return gitRepoRepository.save(repo);
+    }
+
+    @MutationMapping
+    public Issue createIssue(
+            @Argument String title,
+            @Argument String description,
+            @Argument Long repoId
+    ){
+
+        GitRepo repo = gitRepoRepository.findById(repoId)
+                .orElseThrow();
+
+        Issue issue = new Issue();
+        issue.setDescription(description);
+        issue.setTitle(title);
+        issue.setRepo(repo);
+
+        return issueRepository.save(issue);
     }
 }

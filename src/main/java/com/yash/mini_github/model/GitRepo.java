@@ -6,26 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "users")
+@Table(name="gitrepos")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class GitRepo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-
     private String name;
 
-    @OneToMany(mappedBy = "owner")
-    private List<GitRepo> repos = new ArrayList<>();
+    private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 }

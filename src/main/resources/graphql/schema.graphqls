@@ -2,6 +2,13 @@ type User{
     id: ID!
     username: String!
     name: String!
+    repos: [GitRepo!]!
+}
+
+type GitRepo{
+    id: ID!
+    name: String!
+    description: String
 }
 
 type Query{

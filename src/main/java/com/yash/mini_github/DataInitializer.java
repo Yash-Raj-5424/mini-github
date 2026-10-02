@@ -13,7 +13,11 @@ public class DataInitializer {
     CommandLineRunner init(UserRepository userRepository){
         return args -> {
             if(userRepository.count() == 0){
-                userRepository.save(new User(null, "jack", "jack"));
+                User user = new User();
+                user.setUsername("jack");
+                user.setName("jack");
+                userRepository.save(user);
+
             }
         };
     }
